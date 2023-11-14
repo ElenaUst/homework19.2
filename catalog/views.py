@@ -12,6 +12,6 @@ def contact(request):
         phone = request.POST.get('phone')
         message = request.POST.get('message')
         # а также передается информация, которую заполнил пользователь
-        print(name, phone, message)
+        print(f'{name}\n{phone}\n{message}\n')
     return render(request, 'catalog/contacts.html')
 
