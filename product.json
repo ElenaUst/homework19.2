@@ -1,0 +1,80 @@
+[
+  {
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+      "name": "Яблоки",
+      "description": "",
+      "preview": "",
+      "category": 70,
+      "price": 120,
+      "create_date": "2023-11-19T12:40:58Z",
+      "last_change_date": "2023-11-19T12:40:59Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 7,
+    "fields": {
+      "name": "Груши",
+      "description": "",
+      "preview": "",
+      "category": 70,
+      "price": 180,
+      "create_date": "2023-11-19T12:41:21Z",
+      "last_change_date": "2023-11-19T12:41:28Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 8,
+    "fields": {
+      "name": "Чай",
+      "description": "",
+      "preview": "",
+      "category": 71,
+      "price": 200,
+      "create_date": "2023-11-19T12:41:39Z",
+      "last_change_date": "2023-11-19T12:41:41Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 9,
+    "fields": {
+      "name": "Помидоры",
+      "description": "",
+      "preview": "",
+      "category": 69,
+      "price": 160,
+      "create_date": "2023-11-19T12:42:05Z",
+      "last_change_date": "2023-11-19T12:42:06Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 10,
+    "fields": {
+      "name": "Огурцы",
+      "description": "",
+      "preview": "",
+      "category": 69,
+      "price": 100,
+      "create_date": "2023-11-19T12:42:18Z",
+      "last_change_date": "2023-11-19T12:42:20Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 11,
+    "fields": {
+      "name": "Тунец",
+      "description": "",
+      "preview": "",
+      "category": 72,
+      "price": 190,
+      "create_date": "2023-11-19T12:42:37Z",
+      "last_change_date": "2023-11-19T12:42:38Z"
+    }
+  }
+]
