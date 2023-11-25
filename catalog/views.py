@@ -1,8 +1,15 @@
 from django.shortcuts import render
 
+from catalog.models import Product
+
 
 def index(request):
-    return render(request, 'catalog/index.html')
+    product_list = Product.objects.all()
+    context = {
+        'object_list': product_list,
+        'title': 'Главная'
+    }
+    return render(request, 'catalog/index.html', context)
 
 
 def contact(request):
@@ -13,5 +20,18 @@ def contact(request):
         message = request.POST.get('message')
         # а также передается информация, которую заполнил пользователь
         print(f'{name}\n{phone}\n{message}\n')
-    return render(request, 'catalog/contacts.html')
+    context = {
+        'title': 'Контакты'
+    }
+    return render(request, 'catalog/contacts.html', context)
+
+
+def product(request):
+    context = {
+        'object': Product.objects.get(pk=8),
+        'title': 'Товары'
+    }
+    # print(f'{name}\n{description}\n{price}\n')
+    return render(request, 'catalog/products.html', context)
+
 
