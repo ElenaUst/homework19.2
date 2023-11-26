@@ -81,6 +81,7 @@ DATABASES = {
         'PORT': 5432,
         'PASSWORD': 'user_password'
 
+
     }
 }
 
