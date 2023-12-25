@@ -9,7 +9,7 @@ from blog.models import Blog
 
 class BlogCreateView(CreateView):
     model = Blog
-    fields = ('title', 'slug', 'content', 'preview', 'create_date', 'is_public',)
+    fields = ('title', 'content', 'preview', 'is_public',)
     success_url = reverse_lazy('blog:list')
 
     def form_valid(self, form):
@@ -22,7 +22,7 @@ class BlogCreateView(CreateView):
 
 class BlogUpdateView(UpdateView):
     model = Blog
-    fields = ('title', 'slug', 'content', 'preview', 'create_date', 'is_public',)
+    fields = ('title', 'content', 'preview', 'is_public',)
 
     def form_valid(self, form):
         if form.is_valid():

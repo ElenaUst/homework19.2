@@ -1,7 +1,21 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 
-from catalog.models import Product
+from catalog.forms import ProductForm, VersionForm
+from catalog.models import Product, Version
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:index')
+
+    
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:index')
 
 
 # def index(request):
@@ -33,17 +47,6 @@ def contact(request):
     return render(request, 'catalog/contacts.html', context)
 
 
-# class ContactTemplateView(TemplateView):
-#     template_name = 'contacts.html'
-
-# def product(request, pk):
-#     context = {
-#         'object': Product.objects.get(pk=pk),
-#         'title': 'Товары'
-#     }
-#     # print(f'{name}\n{description}\n{price}\n')
-#     return render(request, 'catalog/product_detail.html', context)
-
 class ProductDetailView(DetailView):
     model = Product
     extra_context = {
@@ -51,3 +54,13 @@ class ProductDetailView(DetailView):
     }
 
 
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:index')
+
+
+class VersionCreateView(CreateView):
+    model = Version
+    form_class = VersionForm
+    success_url = reverse_lazy('catalog:index')
+    template_name = 'catalog/product_form.html'

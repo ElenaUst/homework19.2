@@ -32,4 +32,19 @@ class Product(models.Model):
         verbose_name_plural = 'продукты'
 
 
+class Version(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+    number = models.IntegerField(primary_key=True, verbose_name='Номер версии')
+    name = models.CharField(max_length=150, verbose_name='Название версии')
+    is_active = models.BooleanField(default=True, verbose_name='Признак текущей версии')
+
+    def __str__(self):
+        return f'{self.product} (версия {self.number}) - {self.is_active}'
+
+    class Meta:
+        verbose_name = 'Версия'
+        verbose_name_plural = 'Версии'
+        # constraints = [
+        #     models.UniqueConstraint(fields=['number', 'product'], name='unique_number_version_for_product')]
+
 
