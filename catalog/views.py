@@ -1,17 +1,25 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
 
 from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Version
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:index')
+    login_url = reverse_lazy('catalog:access_denied')
 
-    
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.user = self.request.user
+        self.object.save()
+        return super().form_valid(form)
+
+
 class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
@@ -59,8 +67,13 @@ class ProductDeleteView(DeleteView):
     success_url = reverse_lazy('catalog:index')
 
 
-class VersionCreateView(CreateView):
+class VersionCreateView(LoginRequiredMixin, CreateView):
     model = Version
     form_class = VersionForm
     success_url = reverse_lazy('catalog:index')
+    login_url = reverse_lazy('catalog:access_denied')
     template_name = 'catalog/product_form.html'
+
+
+class AccessDeniedView(TemplateView):
+    template_name = 'catalog/access_denied.html'
