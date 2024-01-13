@@ -74,20 +74,18 @@ def generate_new_password(request):
     return redirect(reverse('catalog:index'))
 
 
-class VerifyEmailView(View):
-    @staticmethod
-    def activate(request, uidb64, token):
-        try:
-            uid = force_str(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(pk=uid)
-        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-            user = None
-        if user and user.email_verification_token == token:
-            user.is_active = True
-            user.save()
-            return redirect('users:login')
-        else:
-            return redirect('users:verification_failed')
+def activate(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user and user.email_verification_token == token:
+        user.is_active = True
+        user.save()
+        return redirect('users:login')
+    else:
+        return redirect('users:verification_failed')
 
 
 class VerificationFailedView(TemplateView):
