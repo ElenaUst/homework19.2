@@ -21,10 +21,14 @@
                     </ul>
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary">Написать комментарий
                     </button>
+                    {% if perms.blog.change_blog%}
                     <a href="{% url 'blog:update' object.pk %}" type="button col-4"
                        class="btn btn-lg btn-block btn-outline-primary">Редактировать</a>
+                    {% endif %}
+                    {% if perms.blog.delete_blog%}
                     <a href="{% url 'blog:delete' object.pk %}" type="button col-4"
                        class="btn btn-lg btn-block btn-outline-danger">Удалить</a>
+                    {% endif %}
                 </div>
                 <div class="card-footer">
                     Просмотры: {{object.view_count}}

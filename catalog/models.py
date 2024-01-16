@@ -1,5 +1,4 @@
 from django.db import models
-from config import settings
 from users.models import User
 
 NULLABLE = {'blank': True, 'null': True}
@@ -26,6 +25,8 @@ class Product(models.Model):
     create_date = models.DateTimeField(verbose_name='дата создания')
     last_change_date = models.DateTimeField(verbose_name='дата последнего изменения')
 
+    is_published = models.BooleanField(default=False, verbose_name='признак публикации')
+
     user = models.ForeignKey(User, on_delete=models.SET_NULL, **NULLABLE, verbose_name='зарегистрированный пользователь')
 
     def __str__(self):
@@ -34,6 +35,12 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
+        permissions = [
+                (
+                    'set_published',
+                    'Can publish product'
+                ),
+            ]
 
 
 class Version(models.Model):
@@ -48,7 +55,6 @@ class Version(models.Model):
     class Meta:
         verbose_name = 'Версия'
         verbose_name_plural = 'Версии'
-        # constraints = [
-        #     models.UniqueConstraint(fields=['number', 'product'], name='unique_number_version_for_product')]
+
 
 

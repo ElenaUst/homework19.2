@@ -1,9 +1,10 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
 
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ModeratorProductForm
 from catalog.models import Product, Version
 
 
@@ -20,10 +21,19 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin,  UpdateView):
     model = Product
-    form_class = ProductForm
     success_url = reverse_lazy('catalog:index')
+
+    def get_form_class(self):
+        if self.request.user == self.object.user:
+            return ProductForm
+        elif self.request.user.has_perm('catalog.set_published'):
+            return ModeratorProductForm
+        else:
+            raise Http404('Вы не имеете права на редактирование чужих товаров')
+
+
 
 
 # def index(request):
@@ -62,7 +72,7 @@ class ProductDetailView(DetailView):
     }
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:index')
 

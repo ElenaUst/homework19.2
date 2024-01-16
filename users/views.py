@@ -1,4 +1,6 @@
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
@@ -51,7 +53,7 @@ class RegisterView(CreateView):
         return super().form_valid(form)
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     success_url = reverse_lazy('users:profile')
     form_class = UserForm
@@ -60,6 +62,7 @@ class UserUpdateView(UpdateView):
         return self.request.user
 
 
+@login_required
 def generate_new_password(request):
     new_pass = User.objects.make_random_password()
     send_mail(
@@ -73,7 +76,7 @@ def generate_new_password(request):
     request.user.save()
     return redirect(reverse('catalog:index'))
 
-
+@login_required
 def activate(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
