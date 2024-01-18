@@ -1,19 +1,9 @@
 from django import forms
 from blog.models import Blog
+from catalog.forms import StyleMixin
 
 
-class BlogForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            try:
-                input_type = field.widget.input_type
-                if input_type == 'checkbox':
-                    field.widget.attrs['class'] = 'form-check'
-                else:
-                    field.widget.attrs['class'] = 'form-control'
-            except AttributeError:
-                field.widget.attrs['class'] = 'form-control'
+class BlogForm(StyleMixin, forms.ModelForm):
 
     class Meta:
         model = Blog

@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.http import Http404
+from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
@@ -33,16 +33,6 @@ class ProductUpdateView(LoginRequiredMixin,  UpdateView):
         else:
             raise Http404('Вы не имеете права на редактирование чужих товаров')
 
-
-
-
-# def index(request):
-#     product_list = Product.objects.all()
-#     context = {
-#         'object_list': product_list,
-#         'title': 'Главная'
-#     }
-#     return render(request, 'catalog/product_list.html', context)
 
 class ProductListView(ListView):
     model = Product

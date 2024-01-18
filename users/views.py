@@ -10,7 +10,6 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.views import View
 from django.views.generic import CreateView, UpdateView, TemplateView
 
 from users.forms import UserRegisterForm, UserForm

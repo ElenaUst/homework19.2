@@ -14,7 +14,6 @@ class BlogCreateView(PermissionRequiredMixin, CreateView):
     fields = ('title', 'content', 'preview', 'is_public',)
     success_url = reverse_lazy('blog:list')
 
-
     def form_valid(self, form):
         if form.is_valid():
             new_blog = form.save()

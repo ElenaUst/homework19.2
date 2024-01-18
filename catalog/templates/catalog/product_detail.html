@@ -22,7 +22,7 @@
                     <a href="{% url 'catalog:products_update' object.pk %}" type="button col-4"
                        class="btn btn-lg btn-block btn-outline-primary">Редактировать</a>
                     {% endif %}
-                    {% if object.user == user %}
+                    {% if object.user == user or user.is_superuser %}
                     <a href="{% url 'catalog:products_delete' object.pk %}" type="button col-4"
                        class="btn btn-lg btn-block btn-outline-danger">Удалить</a>
                     {% endif %}
