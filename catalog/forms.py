@@ -18,22 +18,22 @@ class StyleMixin:
 
 
 class ProductForm(StyleMixin, forms.ModelForm):
+    prohibited_data = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
+                       'радар']
 
     class Meta:
         model = Product
         exclude = ('user', 'create_date', 'last_change_date',)
 
     def clean_name(self):
-        prohibited_data = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
-                           'радар']
+        prohibited_data = self.prohibited_data
         cleaned_data = self.cleaned_data.get('name')
         if cleaned_data.lower() in prohibited_data:
             raise forms.ValidationError('Вы пытаетесь загрузить запрещенные продукты!!!')
         return cleaned_data
 
     def clean_description(self):
-        prohibited_data = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
-                           'радар']
+        prohibited_data = self.prohibited_data
         cleaned_data = self.cleaned_data.get('description')
         if cleaned_data.lower() in prohibited_data:
             raise forms.ValidationError('Вы пытаетесь загрузить запрещенные продукты!!!')
