@@ -2,16 +2,13 @@
 {% load my_tags %}
 {% block content %}
 <div class="container">
-    <div class="col-12 mb-5">
-        <div class="row text-center">
-            <div class="col-9">
-                <div class="card mb-4 box-shadow">
-                </div>
-                <img class="rounded mx-auto d-block"
+    <div class="row text-center">
+        <div class="col-6">
+            <div class="card mb-4 box-shadow">
+                <img class="card-img-top"
                      src="{% mediapath object.preview %}"
                      alt="Card image cap"
-                     width="400"
-                     height="350">
+                     height="500">
                 <div class="card-header">
                     <h2 class="my-0 font-weight-normal">{{object.title}}</h2>
                 </div>

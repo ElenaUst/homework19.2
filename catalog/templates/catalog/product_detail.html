@@ -18,6 +18,7 @@
                         <li>{{ object.description }}</li>
                     </ul>
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+
                     {% if object.user == user or perms.catalog.set_published %}
                     <a href="{% url 'catalog:products_update' object.pk %}" type="button col-4"
                        class="btn btn-lg btn-block btn-outline-primary">Редактировать</a>

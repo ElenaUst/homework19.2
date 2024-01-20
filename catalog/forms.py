@@ -3,7 +3,7 @@ from django import forms
 from catalog.models import Product, Version
 
 
-class StyleMixin:
+class StyleMixin(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
@@ -17,7 +17,7 @@ class StyleMixin:
                 field.widget.attrs['class'] = 'form-control'
 
 
-class ProductForm(StyleMixin, forms.ModelForm):
+class ProductForm(StyleMixin):
     prohibited_data = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
                        'радар']
 
@@ -40,7 +40,7 @@ class ProductForm(StyleMixin, forms.ModelForm):
         return cleaned_data
 
 
-class VersionForm(StyleMixin, forms.ModelForm):
+class VersionForm(StyleMixin):
 
     class Meta:
         model = Version
